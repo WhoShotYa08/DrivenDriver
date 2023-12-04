@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:driven_driver/models/textInput.dart';
+import 'package:driven_driver/pages/forgot.dart';
 import 'package:driven_driver/pages/signUp.dart';
 import 'package:flutter/material.dart';
 
@@ -22,8 +23,8 @@ class _LoginScreenState extends State<LoginScreen> {
     final passwordController = TextEditingController();
 
     //validators
-    bool emailValidator = true;
-    bool passwordValidator = true;
+    bool emailValidator = false;
+    bool passwordValidator = false;
 
     return Scaffold(
       body: Center(
@@ -55,10 +56,36 @@ class _LoginScreenState extends State<LoginScreen> {
                 )
               ]),
             ),
-            SizedBox(
-              height: _height * 0.1,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: _width * 0.1),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Do not have an account?",
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SignUpScreen()));
+                    },
+                    child: const Text("Sign Up",
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 209, 164, 243),
+                            fontWeight: FontWeight.w600)),
+                  )
+                ],
+              ),
             ),
-
+            const SizedBox(
+              height: 10,
+            ),
             SizedBox(
               child: Column(children: [
                 Padding(
@@ -111,33 +138,27 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: 10,
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: _width * 0.1),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  const Text(
-                    "Do not have an account?",
+
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ForgotScreen()));
+              },
+              child: SizedBox(
+                width: _width * 0.8,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: _width * 0.01),
+                  child: const Text(
+                    "Forgot Password?",
+                    textAlign: TextAlign.end,
                     style: TextStyle(color: Colors.grey),
                   ),
-                  const SizedBox(
-                    width: 4,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SignUpScreen()));
-                    },
-                    child: const Text("Sign Up",
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 209, 164, 243),
-                            fontWeight: FontWeight.w600)),
-                  )
-                ],
+                ),
               ),
             ),
+
             const SizedBox(
               height: 30,
             ),
@@ -166,6 +187,114 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontWeight: FontWeight.w600,
                       color: Colors.white),
                 ),
+              ),
+            ),
+
+            const SizedBox(
+              height: 15,
+            ),
+
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: _width * 0.1),
+              child: const Row(
+                children: [
+                  Expanded(
+                      child: Divider(
+                    thickness: 0.5,
+                    color: Colors.grey,
+                  )),
+                  Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      child: Text(
+                        "Or continue with",
+                        style: TextStyle(color: Colors.grey),
+                      )),
+                  Expanded(
+                      child: Divider(
+                    thickness: 0.5,
+                    color: Colors.grey,
+                  )),
+                ],
+              ),
+            ),
+
+            const SizedBox(
+              height: 20,
+            ),
+
+            SizedBox(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SizedBox(
+                    width: _width * 0.29,
+                    child: FloatingActionButton(
+                        onPressed: () {},
+                        backgroundColor:
+                            const Color.fromARGB(255, 245, 245, 245),
+                        hoverColor: const Color.fromARGB(255, 245, 245, 245),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Image(
+                                width: 50,
+                                height: 50,
+                                image: AssetImage("../images/google_logo.png")),
+                            Text(
+                              "Google",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 18),
+                            )
+                          ],
+                        )),
+                  ),
+                  SizedBox(
+                    width: _width * 0.29,
+                    child: FloatingActionButton(
+                        onPressed: () {},
+                        backgroundColor: Colors.black,
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Image(
+                                width: 50,
+                                height: 50,
+                                image: AssetImage("../images/apple_logo.png")),
+                            Text(
+                              "Apple",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors.white),
+                            )
+                          ],
+                        )),
+                  ),
+                  SizedBox(
+                    width: _width * 0.29,
+                    child: FloatingActionButton(
+                        onPressed: () {},
+                        backgroundColor: const Color.fromARGB(255, 58, 88, 151),
+                        hoverColor: const Color.fromARGB(255, 58, 88, 151),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Image(
+                                width: 50,
+                                height: 50,
+                                image:
+                                    AssetImage("../images/facebook_logo.png")),
+                            Text(
+                              "Facebook",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors.white),
+                            )
+                          ],
+                        )),
+                  ),
+                ],
               ),
             )
           ],

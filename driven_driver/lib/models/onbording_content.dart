@@ -9,10 +9,10 @@ class OnbordingContent {
 
 List<OnbordingContent> content = [
   OnbordingContent(
-    title: "This is the first title",
+    title: "Bookings",
     asset:
-        "https://lottie.host/ccefdb59-1052-4b05-a2b9-3ad3d7de0fa1/TdHArGc987.json",
-    description: "subtitle goes in here",
+        "https://lottie.host/2327e1a1-8151-40a0-9fbb-0f56ffe2a0dc/glfE2rLgni.json",
+    description: "Select a date and time, suitable for your schedule",
   ),
   OnbordingContent(
     title: "Safe Rides",
@@ -22,9 +22,10 @@ List<OnbordingContent> content = [
         "With Geo-location enabled, you can share your ride details as well as your location on the move.",
   ),
   OnbordingContent(
-    title: "Communication",
+    title: "In-App Communication",
     asset:
         "https://lottie.host/d3848a81-556d-45bf-afd2-db8405804e4d/tkbpEKp37u.json",
-    description: "Driven Driver provides in-app seemless communication between the driver and passenger+",
+    description:
+        "Driven Driver provides in-app seemless communication between the driver and passenger+",
   ),
 ];
