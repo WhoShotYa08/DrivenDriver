@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:driven_driver/models/textInput.dart';
 import 'package:driven_driver/pages/forgot.dart';
 import 'package:driven_driver/pages/signUp.dart';

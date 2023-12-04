@@ -1,5 +1,4 @@
 import 'package:driven_driver/models/textInput.dart';
-import 'package:driven_driver/pages/signUp.dart';
 import 'package:flutter/material.dart';
 
 class ForgotScreen extends StatefulWidget {
