@@ -15,8 +15,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final double _width = MediaQuery.of(context).size.width;
 
     //controllers
+    final usernameController = TextEditingController();
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
+    final confirmPasswordController = TextEditingController();
 
     return Scaffold(
       body: Center(
@@ -52,14 +54,64 @@ class _SignUpScreenState extends State<SignUpScreen> {
             SizedBox(
               child: Column(children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: EdgeInsets.symmetric(horizontal: _width * 0.1),
+                  child: TextInput(
+                      controller: usernameController,
+                      placeholder: "Username",
+                      privateText: false),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: _width * 0.1),
                   child: TextInput(
                       controller: emailController,
                       placeholder: "Email",
                       privateText: false),
-                )
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: _width * 0.1),
+                  child: TextInput(
+                      controller: passwordController,
+                      placeholder: "Password",
+                      privateText: true),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: _width * 0.1),
+                  child: TextInput(
+                      controller: confirmPasswordController,
+                      placeholder: "Confirm Password",
+                      privateText: true),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
               ]),
             ),
+
+            SizedBox(
+              width: _width * 0.65,
+              child: FloatingActionButton(
+                backgroundColor: const Color.fromRGBO(116, 52, 164, 0.8),
+                onPressed: () {
+                  print(emailController.text);
+                },
+                child: const Text(
+                  "Login",
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white),
+                ),
+              ),
+            )
           ],
         ),
       ),

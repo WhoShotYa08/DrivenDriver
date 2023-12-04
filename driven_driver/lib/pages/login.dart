@@ -1,4 +1,5 @@
 import 'package:driven_driver/models/textInput.dart';
+import 'package:driven_driver/pages/signUp.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -79,16 +80,28 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: _width * 0.1),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(
-                    "Do not have an account? ",
+                  const Text(
+                    "Do not have an account?",
                     style: TextStyle(color: Colors.grey),
                   ),
-                  Text("Sign Up",
-                      style:
-                          TextStyle(color: Color.fromARGB(255, 203, 53, 243)))
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SignUpScreen()));
+                    },
+                    child: const Text("Sign Up",
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 209, 164, 243),
+                            fontWeight: FontWeight.w600)),
+                  )
                 ],
               ),
             ),
