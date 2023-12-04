@@ -77,17 +77,5 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             },
           ),
         )
-        // floatingActionButton: SizedBox(
-        //   width: 200,
-        //   height: 50,
-        //   child: FloatingActionButton(
-        //     onPressed: _onboardingScreen,
-        //     child: const Text(
-        //       "Get Started!",
-        //       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-        //     ),
-        //   ),
-        // ),
-        // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat);
   );}
 }

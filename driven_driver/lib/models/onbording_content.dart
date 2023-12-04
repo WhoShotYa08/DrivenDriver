@@ -25,6 +25,6 @@ List<OnbordingContent> content = [
     title: "Communication",
     asset:
         "https://lottie.host/d3848a81-556d-45bf-afd2-db8405804e4d/tkbpEKp37u.json",
-    description: "Driven Driver provides in-app seemless communication between the driver and passenger",
+    description: "Driven Driver provides in-app seemless communication between the driver and passenger+",
   ),
 ];
