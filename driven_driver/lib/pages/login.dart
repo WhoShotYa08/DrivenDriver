@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:driven_driver/models/textInput.dart';
 import 'package:driven_driver/pages/signUp.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +20,10 @@ class _LoginScreenState extends State<LoginScreen> {
     //controllers
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
+
+    //validators
+    bool emailValidator = true;
+    bool passwordValidator = true;
 
     return Scaffold(
       body: Center(
@@ -62,6 +68,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       placeholder: "Email",
                       privateText: false),
                 ),
+                SizedBox(
+                  width: _width * 0.8,
+                  child: Visibility(
+                    visible: emailValidator,
+                    child: const Text(
+                      "Email Field cannot be empty",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -73,6 +92,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       privateText: true),
                 )
               ]),
+            ),
+
+            SizedBox(
+              width: _width * 0.8,
+              child: Visibility(
+                visible: passwordValidator,
+                child: const Text(
+                  "Password Field cannot be empty",
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    color: Colors.red,
+                  ),
+                ),
+              ),
             ),
 
             const SizedBox(
@@ -114,7 +147,17 @@ class _LoginScreenState extends State<LoginScreen> {
               child: FloatingActionButton(
                 backgroundColor: const Color.fromRGBO(116, 52, 164, 0.8),
                 onPressed: () {
-                  print(emailController.text);
+                  if (emailController.text == '') {
+                    setState(() {
+                      emailValidator = true;
+                    });
+                  } else {
+                    setState(() {
+                      emailValidator = false;
+                    });
+                  }
+
+                  print(emailValidator);
                 },
                 child: const Text(
                   "Login",

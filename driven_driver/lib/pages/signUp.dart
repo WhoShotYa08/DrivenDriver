@@ -96,15 +96,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ]),
             ),
 
+            const SizedBox(
+              height: 30,
+            ),
+
             SizedBox(
               width: _width * 0.65,
               child: FloatingActionButton(
                 backgroundColor: const Color.fromRGBO(116, 52, 164, 0.8),
                 onPressed: () {
-                  print(emailController.text);
+                  print(usernameController.text);
                 },
                 child: const Text(
-                  "Login",
+                  "Sign Up",
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
