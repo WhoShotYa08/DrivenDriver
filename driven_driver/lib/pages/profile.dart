@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,11 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   bool isVisible = true;
+
+  void logout() {
+    FirebaseAuth.instance.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     final double _height = MediaQuery.of(context).size.height;
@@ -28,8 +34,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: _height * 0.35,
                       width: _width,
                       fit: BoxFit.cover,
-                      image: const AssetImage("../images/second_try.png"),
+                      image: const AssetImage("assets/images/second_try.png"),
                     )),
+                Positioned(
+                  top: _height * 0.05,
+                  left: _width * 0.89,
+                  child: GestureDetector(
+                      onTap: logout,
+                      child: const Icon(
+                        Icons.logout_outlined,
+                        size: 30,
+                        color: Colors.red,
+                      )),
+                ),
                 Positioned(
                     top: _height * 0.2,
                     left: _width * 0.32,
@@ -40,12 +57,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(_width),
                           color: Colors.grey),
-                      child: const Icon(Icons.person_2_rounded,size: 125,),
+                      child: const Icon(
+                        Icons.person_2_rounded,
+                        size: 125,
+                      ),
                     )))
               ],
             ),
           ),
-
         ],
       ),
     );

@@ -22,6 +22,7 @@ class _OnboardingScreen extends State<Onboarding> {
 
   @override
   void dispose() {
+    super.dispose();
     _controller.dispose();
   }
 
@@ -77,6 +78,7 @@ class _OnboardingScreen extends State<Onboarding> {
       SizedBox(
         width: MediaQuery.of(context).size.width * 0.8,
         child: FloatingActionButton(
+          heroTag: 'btn',
           onPressed: () {
             if (currentIndex == content.length - 1) {
               Navigator.pushReplacement(context,

@@ -1,3 +1,4 @@
+import 'package:driven_driver/models/circles_design.dart';
 import 'package:driven_driver/models/text_input.dart';
 import 'package:flutter/material.dart';
 
@@ -26,44 +27,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: Column(
             children: [
               //The circles right at the top of the page
-              SizedBox(
-                height: _height * 0.39,
-                child: Stack(children: [
-                  Positioned(
-                      top: -_height * 0.15,
-                      left: -_width * 0.15,
-                      child: Container(
-                        width: _width * 0.6,
-                        height: _width * 0.6,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(_width),
-                            color: const Color.fromARGB(225, 116, 52, 164)),
-                      )),
-                  Positioned(
-                    top: -_height * 0.15,
-                    left: _width * 0.35,
-                    child: Container(
-                        width: _width * 0.7,
-                        height: _width * 0.7,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(_width),
-                            color: const Color.fromARGB(255, 209, 164, 243))),
-                  )
-                ]),
-              ),
+              const CirclesDesign(),
 
               SizedBox(
                 child: Column(children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: _width * 0.1),
-                    child: TextInput(
-                        controller: usernameController,
-                        placeholder: "Username",
-                        privateText: false),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: _width * 0.1),
                     child: TextInput(
