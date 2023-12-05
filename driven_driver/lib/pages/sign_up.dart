@@ -12,11 +12,10 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
-    final double _height = MediaQuery.of(context).size.height;
-    final double _width = MediaQuery.of(context).size.width;
+    // final double height = MediaQuery.of(context).size.height;
+    final double width = MediaQuery.of(context).size.width;
 
     //controllers
-    final usernameController = TextEditingController();
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
     final confirmPasswordController = TextEditingController();
@@ -32,7 +31,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(
                 child: Column(children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: _width * 0.1),
+                    padding: EdgeInsets.symmetric(horizontal: width * 0.1),
                     child: TextInput(
                         controller: emailController,
                         placeholder: "Email",
@@ -42,7 +41,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     height: 10,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: _width * 0.1),
+                    padding: EdgeInsets.symmetric(horizontal: width * 0.1),
                     child: TextInput(
                         controller: passwordController,
                         placeholder: "Password",
@@ -52,7 +51,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     height: 10,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: _width * 0.1),
+                    padding: EdgeInsets.symmetric(horizontal: width * 0.1),
                     child: TextInput(
                         controller: confirmPasswordController,
                         placeholder: "Confirm Password",
@@ -69,12 +68,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
 
               SizedBox(
-                width: _width * 0.65,
+                width: width * 0.65,
                 child: FloatingActionButton(
                   backgroundColor: const Color.fromRGBO(116, 52, 164, 0.8),
-                  onPressed: () {
-                    print(usernameController.text);
-                  },
+                  onPressed: () {},
                   child: const Text(
                     "Sign Up",
                     style: TextStyle(

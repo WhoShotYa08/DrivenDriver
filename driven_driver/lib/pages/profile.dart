@@ -17,27 +17,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final double _height = MediaQuery.of(context).size.height;
-    final double _width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
+    final double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: Column(
         children: <Widget>[
           SizedBox(
-            height: _height * 0.55,
+            height: height * 0.55,
             child: Stack(
               children: <Widget>[
                 Positioned(
-                    width: _width,
+                    width: width,
                     child: Image(
-                      height: _height * 0.35,
-                      width: _width,
+                      height: height * 0.35,
+                      width: width,
                       fit: BoxFit.cover,
                       image: const AssetImage("assets/images/second_try.png"),
                     )),
                 Positioned(
-                  top: _height * 0.05,
-                  left: _width * 0.89,
+                  top: height * 0.05,
+                  left: width * 0.89,
                   child: GestureDetector(
                       onTap: logout,
                       child: const Icon(
@@ -47,14 +47,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       )),
                 ),
                 Positioned(
-                    top: _height * 0.2,
-                    left: _width * 0.32,
+                    top: height * 0.2,
+                    left: width * 0.32,
                     child: GestureDetector(
                         child: Container(
-                      height: _width * 0.35,
-                      width: _width * 0.35,
+                      height: width * 0.35,
+                      width: width * 0.35,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(_width),
+                          borderRadius: BorderRadius.circular(width),
                           color: Colors.grey),
                       child: const Icon(
                         Icons.person_2_rounded,

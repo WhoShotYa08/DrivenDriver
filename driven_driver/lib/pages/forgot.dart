@@ -12,8 +12,8 @@ class ForgotScreen extends StatefulWidget {
 class _ForgotScreenState extends State<ForgotScreen> {
   @override
   Widget build(BuildContext context) {
-    final double _height = MediaQuery.of(context).size.height;
-    final double _width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
+    final double width = MediaQuery.of(context).size.width;
 
     //controllers
     final emailController = TextEditingController();
@@ -29,12 +29,12 @@ class _ForgotScreenState extends State<ForgotScreen> {
             const CirclesDesign(),
 
             SizedBox(
-              height: _height * 0.15,
+              height: height * 0.15,
             ),
             SizedBox(
               child: Column(children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: _width * 0.1),
+                  padding: EdgeInsets.symmetric(horizontal: width * 0.1),
                   child: TextInput(
                       controller: emailController,
                       placeholder: "Email",
@@ -57,7 +57,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
             ),
 
             SizedBox(
-              width: _width * 0.65,
+              width: width * 0.65,
               child: FloatingActionButton(
                 backgroundColor: const Color.fromRGBO(116, 52, 164, 0.8),
                 onPressed: () {

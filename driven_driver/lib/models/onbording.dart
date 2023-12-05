@@ -1,10 +1,11 @@
 import 'package:driven_driver/auth/auth_page.dart';
-import 'package:driven_driver/pages/login.dart';
 import 'package:flutter/material.dart';
 import 'package:driven_driver/models/onbording_content.dart';
 import 'package:lottie/lottie.dart';
 
 class Onboarding extends StatefulWidget {
+  const Onboarding({super.key});
+
   @override
   _OnboardingScreen createState() => _OnboardingScreen();
 }
@@ -68,12 +69,10 @@ class _OnboardingScreen extends State<Onboarding> {
                   ],
                 );
               })),
-      Container(
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(
-                content.length, (index) => _buildDot(index, context))),
-      ),
+      Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(
+              content.length, (index) => _buildDot(index, context))),
       const SizedBox(height: 15),
       SizedBox(
         width: MediaQuery.of(context).size.width * 0.8,

@@ -1,7 +1,7 @@
 import 'package:driven_driver/models/circles_design.dart';
 import 'package:driven_driver/models/text_input.dart';
 import 'package:driven_driver/pages/forgot.dart';
-import 'package:driven_driver/pages/signUp.dart';
+import 'package:driven_driver/pages/sign_up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -15,8 +15,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    final double _height = MediaQuery.of(context).size.height;
-    final double _width = MediaQuery.of(context).size.width;
+    // final double _height = MediaQuery.of(context).size.height;
+    final double width = MediaQuery.of(context).size.width;
 
     //controllers
     final emailController = TextEditingController();
@@ -86,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
               //The circles right at the top of the page
               const CirclesDesign(),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: _width * 0.1),
+                padding: EdgeInsets.symmetric(horizontal: width * 0.1),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -118,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 child: Column(children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: _width * 0.1),
+                    padding: EdgeInsets.symmetric(horizontal: width * 0.1),
                     child: TextInput(
                         controller: emailController,
                         placeholder: "Email",
@@ -138,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 20,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: _width * 0.1),
+                    padding: EdgeInsets.symmetric(horizontal: width * 0.1),
                     child: TextInput(
                         controller: passwordController,
                         placeholder: "Password",
@@ -148,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
 
               SizedBox(
-                width: _width * 0.8,
+                width: width * 0.8,
                 child: Visibility(
                   visible: passwordValidator,
                   child: const Text(
@@ -173,9 +173,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           builder: (context) => const ForgotScreen()));
                 },
                 child: SizedBox(
-                  width: _width * 0.8,
+                  width: width * 0.8,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: _width * 0.01),
+                    padding: EdgeInsets.symmetric(horizontal: width * 0.01),
                     child: const Text(
                       "Forgot Password?",
                       textAlign: TextAlign.end,
@@ -190,7 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
 
               SizedBox(
-                width: _width * 0.65,
+                width: width * 0.65,
                 child: FloatingActionButton(
                   backgroundColor: const Color.fromRGBO(116, 52, 164, 0.8),
                   onPressed: () {
@@ -215,7 +215,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
 
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: _width * 0.1),
+                padding: EdgeInsets.symmetric(horizontal: width * 0.1),
                 child: const Row(
                   children: [
                     Expanded(
@@ -247,7 +247,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     SizedBox(
-                      width: _width * 0.4,
+                      width: width * 0.4,
                       child: FloatingActionButton(
                           onPressed: () {},
                           backgroundColor: Colors.black,
@@ -260,7 +260,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           )),
                     ),
                     SizedBox(
-                      width: _width * 0.4,
+                      width: width * 0.4,
                       child: FloatingActionButton(
                           onPressed: () {},
                           backgroundColor:
@@ -281,7 +281,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 10,
               ),
               SizedBox(
-                width: _width * 0.9,
+                width: width * 0.9,
                 child: FloatingActionButton(
                     onPressed: () {},
                     backgroundColor: const Color.fromARGB(255, 245, 245, 245),

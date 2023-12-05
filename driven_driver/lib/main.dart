@@ -1,5 +1,4 @@
 import 'package:driven_driver/models/onbording.dart';
-import 'package:driven_driver/pages/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -66,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   void _onboardingScreen() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => Onboarding()));
+        context, MaterialPageRoute(builder: (context) => const Onboarding()));
   }
 
   @override
@@ -80,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           _controller.duration = composition.duration;
           _controller.forward().whenComplete(() => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Onboarding()),
+                MaterialPageRoute(builder: (context) => const Onboarding()),
               ));
         },
       ),
