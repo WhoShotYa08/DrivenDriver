@@ -1,4 +1,5 @@
 import 'package:driven_driver/models/onbording.dart';
+import 'package:driven_driver/pages/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -13,15 +14,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Driven Driver',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 80, 37, 153)),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: ''),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Driven Driver',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color.fromARGB(255, 80, 37, 153)),
+          useMaterial3: true,
+        ),
+        // home: const MyHomePage(title: ''),
+        home: const BottomNav());
   }
 }
 
@@ -65,17 +66,17 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-          child: Lottie.network(
-            "https://lottie.host/ccefdb59-1052-4b05-a2b9-3ad3d7de0fa1/TdHArGc987.json",
-            repeat: false,
-            onLoaded: (composition) {
-              _controller.duration = composition.duration;
-              _controller.forward().whenComplete(() => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Onboarding()),
-                  ));
-            },
-          ),
-        )
-  );}
+      child: Lottie.network(
+        "https://lottie.host/ccefdb59-1052-4b05-a2b9-3ad3d7de0fa1/TdHArGc987.json",
+        repeat: false,
+        onLoaded: (composition) {
+          _controller.duration = composition.duration;
+          _controller.forward().whenComplete(() => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Onboarding()),
+              ));
+        },
+      ),
+    ));
+  }
 }

@@ -1,4 +1,5 @@
-import 'package:driven_driver/models/textInput.dart';
+import 'package:driven_driver/models/text_input.dart';
+import 'package:driven_driver/pages/bottom_nav.dart';
 import 'package:driven_driver/pages/forgot.dart';
 import 'package:driven_driver/pages/signUp.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final passwordController = TextEditingController();
 
     //validators
-    bool emailValidator = false;
+    bool isVisible = false;
     bool passwordValidator = false;
 
     return Scaffold(
@@ -96,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   width: _width * 0.8,
                   child: Visibility(
-                    visible: emailValidator,
+                    visible: isVisible,
                     child: const Text(
                       "Email Field cannot be empty",
                       textAlign: TextAlign.start,
@@ -168,15 +169,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: () {
                   if (emailController.text == '') {
                     setState(() {
-                      emailValidator = true;
+                      isVisible = true;
                     });
                   } else {
                     setState(() {
-                      emailValidator = false;
+                      isVisible = false;
                     });
                   }
 
-                  print(emailValidator);
+                  if (emailController.text.isNotEmpty &&
+                      passwordController.text.isNotEmpty) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const BottomNav()));
+                  }
                 },
                 child: const Text(
                   "Login",

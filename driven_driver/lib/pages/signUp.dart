@@ -1,4 +1,4 @@
-import 'package:driven_driver/models/textInput.dart';
+import 'package:driven_driver/models/text_input.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatefulWidget {
