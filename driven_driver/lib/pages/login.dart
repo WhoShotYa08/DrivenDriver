@@ -1,10 +1,8 @@
 import 'package:driven_driver/models/circles_design.dart';
 import 'package:driven_driver/models/text_input.dart';
-import 'package:driven_driver/pages/bottom_nav.dart';
 import 'package:driven_driver/pages/forgot.dart';
 import 'package:driven_driver/pages/signUp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
