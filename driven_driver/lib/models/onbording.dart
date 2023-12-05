@@ -1,3 +1,4 @@
+import 'package:driven_driver/auth/auth_page.dart';
 import 'package:driven_driver/pages/login.dart';
 import 'package:flutter/material.dart';
 import 'package:driven_driver/models/onbording_content.dart';
@@ -79,7 +80,7 @@ class _OnboardingScreen extends State<Onboarding> {
           onPressed: () {
             if (currentIndex == content.length - 1) {
               Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const LoginScreen()));
+                  MaterialPageRoute(builder: (context) => const AuthPage()));
             }
             _controller.nextPage(
                 duration: const Duration(seconds: 1), curve: Curves.linear);

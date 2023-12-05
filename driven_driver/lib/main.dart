@@ -2,8 +2,14 @@ import 'package:driven_driver/models/onbording.dart';
 import 'package:driven_driver/pages/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -14,15 +20,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Driven Driver',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-              seedColor: const Color.fromARGB(255, 80, 37, 153)),
-          useMaterial3: true,
-        ),
-        // home: const MyHomePage(title: ''),
-        home: const BottomNav());
+      debugShowCheckedModeBanner: false,
+      title: 'Driven Driver',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(255, 80, 37, 153)),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(title: ''),
+    );
+    // home: const BottomNav());
   }
 }
 

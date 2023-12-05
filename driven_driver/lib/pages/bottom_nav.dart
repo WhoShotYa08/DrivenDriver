@@ -1,3 +1,4 @@
+import 'package:driven_driver/pages/profile.dart';
 import 'package:flutter/material.dart';
 
 class BottomNav extends StatefulWidget {
@@ -10,7 +11,7 @@ class BottomNav extends StatefulWidget {
 class _BottomNavState extends State<BottomNav> {
   int _currentIndex = 2;
 
-  final tabs = [
+  final tabs = <Widget>[
     const Center(
       child: Text("Chats Forum Screen"),
     ),
@@ -23,9 +24,7 @@ class _BottomNavState extends State<BottomNav> {
     const Center(
       child: Text("Location Screen"),
     ),
-    const Center(
-      child: Text("Profile Screen"),
-    )
+    const ProfileScreen()
   ];
   @override
   Widget build(BuildContext context) {

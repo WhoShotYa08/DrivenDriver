@@ -63,17 +63,10 @@ class _ForgotScreenState extends State<ForgotScreen> {
                       placeholder: "Email",
                       privateText: false),
                 ),
-                SizedBox(
-                  width: _width * 0.8,
-                  child: Visibility(
-                    visible: emailValidator,
-                    child: const Text(
-                      "Email Field cannot be empty",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        color: Colors.red,
-                      ),
-                    ),
+                Visibility(
+                  visible: emailValidator,
+                  child: const Text(
+                    "Email Field cannot be empty",
                   ),
                 ),
                 const SizedBox(
@@ -91,17 +84,9 @@ class _ForgotScreenState extends State<ForgotScreen> {
               child: FloatingActionButton(
                 backgroundColor: const Color.fromRGBO(116, 52, 164, 0.8),
                 onPressed: () {
-                  if (emailController.text == '') {
-                    setState(() {
-                      emailValidator = true;
-                    });
-                  } else {
-                    setState(() {
-                      emailValidator = false;
-                    });
-                  }
-
-                  print(emailValidator);
+                  setState(() {
+                    emailValidator = emailController.text.isEmpty;
+                  });
                 },
                 child: const Text(
                   "Reset Password",
