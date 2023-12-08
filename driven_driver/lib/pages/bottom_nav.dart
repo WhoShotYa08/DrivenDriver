@@ -1,4 +1,5 @@
 import 'package:driven_driver/pages/booked.dart';
+import 'package:driven_driver/pages/create_booking.dart';
 import 'package:driven_driver/pages/profile.dart';
 import 'package:flutter/material.dart';
 
@@ -16,9 +17,7 @@ class _BottomNavState extends State<BottomNav> {
     const Center(
       child: Text("Chats Forum Screen"),
     ),
-    const Center(
-      child: Text("Create Booking Screen"),
-    ),
+    const CreateBookingScreen(),
     const BookedScreen(),
     const Center(
       child: Text("Location Screen"),

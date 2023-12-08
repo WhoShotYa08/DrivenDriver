@@ -58,13 +58,16 @@ class _OnboardingScreen extends State<Onboarding> {
                           fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.italic),
                     ),
-                    Text(
-                      content[x].description,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: Text(
+                        content[x].description,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
                     ),
                   ],
                 );

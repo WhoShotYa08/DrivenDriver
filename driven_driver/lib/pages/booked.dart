@@ -21,6 +21,14 @@ class _BookedScreenState extends State<BookedScreen> {
 
   late String result = "";
 
+  List<dynamic> getSearchOutput(List inputList) {
+    List outputList = inputList
+        .where((element) => element['destination'].toString().contains(result))
+        .toList();
+
+    return outputList;
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -58,17 +66,18 @@ class _BookedScreenState extends State<BookedScreen> {
                   Object liftsDetails = {
                     'availableSeats': booking['availableSeats'],
                     'cost': booking['costShareDescription'],
-                    'date': booking['date'],
-                    'destination': booking['destination'],
-                    'location': booking['location'],
+                    'dateTime': booking['departureDateTime'],
+                    'destinationSteet': booking['destinationStreet'],
+                    'destinationTown': booking['destinationTown'],
+                    'locationStreet': booking['departureStreet'],
+                    'locationTown': booking['departureTown'],
                     'number': booking['numberOfPassenger'],
                     'owner_id': booking['owner_id'],
-                    'time': booking['time']
+                    'lift_id': booking['lift_id']
                   };
                   lifts.add(liftsDetails);
                 }
               }
-
               return Expanded(
                 child: ListView.builder(
                     itemCount: lifts.length,
@@ -77,15 +86,29 @@ class _BookedScreenState extends State<BookedScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Column(
                           children: [
-                            BookedContainer(
-                                passengers: lifts[index]['number'],
-                                availableSeats: lifts[index]["availableSeats"],
-                                driver: lifts[index]["owner_id"],
-                                location: lifts[index]['location'],
-                                destination: lifts[index]['destination'],
-                                date: lifts[index]["date"],
-                                time: lifts[index]["time"],
-                                cost: lifts[index]['cost']),
+                            lifts[index]['destinationSteet']
+                                        .toLowerCase()
+                                        .contains(result.toLowerCase()) ||
+                                    lifts[index]['destinationTown']
+                                        .toLowerCase()
+                                        .contains(result.toLowerCase())
+                                ? BookedContainer(
+                                    passengers: lifts[index]['number'],
+                                    availableSeats: lifts[index]
+                                        ["availableSeats"],
+                                    driver: lifts[index]["owner_id"],
+                                    departureStreet: lifts[index]
+                                        ['locationStreet'],
+                                    departureTown: lifts[index]['locationTown'],
+                                    destinationStreet: lifts[index]
+                                        ['destinationSteet'],
+                                    destinationTown: lifts[index]
+                                        ['destinationTown'],
+                                    dateTime: lifts[index]['dateTime'],
+                                    cost: lifts[index]['cost'],
+                                    lift_id: lifts[index]['lift_id'],
+                                  )
+                                : const Text(''),
                             const SizedBox(
                               height: 10,
                             )

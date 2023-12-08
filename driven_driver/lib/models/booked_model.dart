@@ -1,28 +1,32 @@
-import 'dart:ui';
-
+import 'dart:core';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class BookedContainer extends StatelessWidget {
-  int passengers;
   int availableSeats;
-  String driver;
-  String location;
-  String date;
-  String time;
-  String destination;
+  int passengers;
+  Timestamp dateTime;
   String cost;
+  String departureStreet;
+  String departureTown;
+  String destinationStreet;
+  String destinationTown;
+  String driver;
+  String lift_id;
 
   BookedContainer(
       {super.key,
       required this.passengers,
       required this.availableSeats,
       required this.driver,
-      required this.location,
-      required this.destination,
-      required this.date,
-      required this.time,
-      required this.cost});
+      required this.departureStreet,
+      required this.departureTown,
+      required this.destinationStreet,
+      required this.destinationTown,
+      required this.dateTime,
+      required this.cost,
+      required this.lift_id});
 
   // user email
   final user = FirebaseAuth.instance.currentUser!;
@@ -35,7 +39,7 @@ class BookedContainer extends StatelessWidget {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.height;
 
-    Row Driver() {
+    Row _driver() {
       return Row(
         children: [
           SizedBox(
@@ -44,7 +48,7 @@ class BookedContainer extends StatelessWidget {
             child: FloatingActionButton(
                 onPressed: () {},
                 child: const Text(
-                  'Cancel',
+                  'Delete',
                   style: TextStyle(color: Colors.red),
                 )),
           ),
@@ -63,14 +67,22 @@ class BookedContainer extends StatelessWidget {
       );
     }
 
-    Padding Driven() {
+    Padding _driven() {
       return Padding(
           padding: const EdgeInsets.all(8),
           child: SizedBox(
               height: height * 0.05,
               width: width * 0.18,
               child: FloatingActionButton(
-                onPressed: () {},
+                onPressed: () {
+                  final data = FirebaseFirestore.instance
+                      .collection('Lifts')
+                      .doc(lift_id);
+
+                  data.update({
+                    'numberOfPassenger': passengers + 1,
+                  });
+                },
                 child: const Text("Book"),
               )));
     }
@@ -85,12 +97,35 @@ class BookedContainer extends StatelessWidget {
       child: Column(
         children: [
           // Destination Details
-          Text(destination,
-              style: const TextStyle(
-                  fontSize: 21,
-                  fontFamily: AutofillHints.addressCityAndState,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white)),
+          Row(
+            children: [
+              Text(destinationStreet,
+                  style: const TextStyle(
+                      fontSize: 21,
+                      fontFamily: AutofillHints.addressCityAndState,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
+              const Text(",",
+                  style: TextStyle(
+                      fontSize: 21,
+                      fontFamily: AutofillHints.addressCityAndState,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
+              const SizedBox(
+                width: 5,
+              ),
+              Text(destinationTown,
+                  style: const TextStyle(
+                      fontSize: 21,
+                      fontFamily: AutofillHints.addressCityAndState,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
+            ],
+          ),
+
+          const SizedBox(
+            height: 7,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -116,6 +151,7 @@ class BookedContainer extends StatelessWidget {
                   ),
                   // Departure Location Details
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Icon(
                         Icons.location_pin,
@@ -124,8 +160,15 @@ class BookedContainer extends StatelessWidget {
                       const SizedBox(
                         width: 5,
                       ),
-                      Text(location,
-                          style: const TextStyle(color: Colors.white))
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(departureStreet,
+                              style: const TextStyle(color: Colors.white)),
+                          Text(departureTown,
+                              style: const TextStyle(color: Colors.white)),
+                        ],
+                      )
                     ],
                   ),
                   const SizedBox(
@@ -139,7 +182,7 @@ class BookedContainer extends StatelessWidget {
                       const SizedBox(
                         width: 5,
                       ),
-                      Text('$date - $time',
+                      Text(dateTime.toDate().toString(),
                           style: const TextStyle(
                               fontStyle: FontStyle.italic, color: Colors.white))
                     ],
@@ -156,29 +199,37 @@ class BookedContainer extends StatelessWidget {
                         width: 5,
                       ),
                       Text(
+                        "$availableSeats /",
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                      Text(
                         "${availableSeats - passengers}",
                         style: TextStyle(
-                            color: availableSeats > (availableSeats / 2)
+                            color: passengers <= availableSeats / 2
                                 ? Colors.white
                                 : Colors.red),
                       )
                     ],
                   ),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        cost,
-                        style: const TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
-                      ),
-                      //This will contain the accept or cancel buttons
-                      user.uid == driver ? Driver() : Driven()
-                    ],
-                  )
                 ],
               ),
+            ],
+          ),
+          // Price Tag as well the necessary buttons
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                child: Text(
+                  cost,
+                  style: const TextStyle(
+                      fontSize: 31, fontWeight: FontWeight.bold),
+                ),
+              ),
+
+              //This will contain the accept or cancel buttons
+              user.uid == driver ? _driver() : _driven()
             ],
           )
         ],
