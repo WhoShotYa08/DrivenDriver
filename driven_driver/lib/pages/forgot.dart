@@ -1,5 +1,6 @@
 import 'package:driven_driver/models/circles_design.dart';
 import 'package:driven_driver/models/text_input.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ForgotScreen extends StatefulWidget {
@@ -17,6 +18,37 @@ class _ForgotScreenState extends State<ForgotScreen> {
 
     //controllers
     final emailController = TextEditingController();
+
+    @override
+    void dispose() {
+      emailController.dispose();
+      super.dispose();
+    }
+
+    Future passwordReset() async {
+      try {
+        await FirebaseAuth.instance
+            .sendPasswordResetEmail(email: emailController.text.trim());
+        // ignore: use_build_context_synchronously
+        showDialog(
+            context: context,
+            builder: (context) {
+              return const AlertDialog(
+                content: Text("Password Reset Link Sent!"),
+              );
+            });
+      } on FirebaseAuthMultiFactorException catch (e) {
+        print(e);
+        // ignore: use_build_context_synchronously
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                content: Text(e.message.toString()),
+              );
+            });
+      }
+    }
 
     //validators
     bool emailValidator = false;
@@ -64,6 +96,8 @@ class _ForgotScreenState extends State<ForgotScreen> {
                   setState(() {
                     emailValidator = emailController.text.isEmpty;
                   });
+
+                  passwordReset();
                 },
                 child: const Text(
                   "Reset Password",

@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:driven_driver/models/circles_design.dart';
+import 'package:driven_driver/models/login_options.dart';
 import 'package:driven_driver/models/text_input.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -12,13 +15,47 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
-    // final double height = MediaQuery.of(context).size.height;
+    final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
 
     //controllers
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
     final confirmPasswordController = TextEditingController();
+
+    @override
+    void dispose() {
+      emailController.dispose();
+      passwordController.dispose();
+      confirmPasswordController.dispose();
+      super.dispose();
+    }
+
+    void signUp() async {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return const Center(child: CircularProgressIndicator());
+          });
+
+      if (passwordController.text != confirmPasswordController.text) {
+        Navigator.pop(context);
+      }
+
+      try {
+        if (passwordController.text == confirmPasswordController.text) {
+          FirebaseAuth.instance.createUserWithEmailAndPassword(
+              email: emailController.text, password: passwordController.text);
+          
+          Navigator.pop(context);
+        }
+      } on FirebaseAuthException catch (e) {
+        Navigator.pop(context);
+        print(e.code);
+      }
+    }
+
+
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -71,7 +108,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 width: width * 0.65,
                 child: FloatingActionButton(
                   backgroundColor: const Color.fromRGBO(116, 52, 164, 0.8),
-                  onPressed: () {},
+                  onPressed: signUp,
                   child: const Text(
                     "Sign Up",
                     style: TextStyle(
@@ -80,6 +117,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         color: Colors.white),
                   ),
                 ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                height: height * 0.8,
+                child: const LoginOptions(),
               )
             ],
           ),

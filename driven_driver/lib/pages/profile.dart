@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -11,8 +12,75 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   bool isVisible = true;
 
+  late List userDetails;
+
+  // user email
+  final user = FirebaseAuth.instance.currentUser!;
+  //get user IDs
+  Future getDocId() async {
+    await FirebaseFirestore.instance
+        .collection('Users')
+        .get()
+        .then((snapShot) => snapShot.docs.forEach((document) {
+              if (document.reference.id == user.uid) {
+                setState(() {
+                  userDetails = [
+                    document.data()["Username"],
+                    document.data()['number']
+                  ];
+                });
+              }
+            }));
+  }
+
+  @override
+  void initState() {
+    getDocId();
+    super.initState();
+  }
+
   void logout() {
     FirebaseAuth.instance.signOut();
+  }
+
+  bool canUpdate = false;
+
+  //Controllers
+  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
+  final numberController = TextEditingController();
+
+  Future addUserDetails(
+    String username,
+    String number,
+  ) async {
+    await FirebaseFirestore.instance
+        .collection('Users/${user.uid}')
+        .add({'Username': username, 'number': number});
+  }
+
+  //uneditable texfield
+  InputDecoration cannotEdit() {
+    return const InputDecoration(
+      isCollapsed: true,
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(style: BorderStyle.none, color: Colors.grey),
+      ),
+      focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(style: BorderStyle.none, color: Colors.grey)),
+    );
+  }
+
+  //eiditable textfield
+  InputDecoration canEdit() {
+    return const InputDecoration(
+      // isCollapsed: true,
+      isDense: true,
+      enabledBorder:
+          OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+      focusedBorder:
+          OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+    );
   }
 
   @override
@@ -24,7 +92,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Column(
         children: <Widget>[
           SizedBox(
-            height: height * 0.55,
+            height: height * 0.5,
             child: Stack(
               children: <Widget>[
                 Positioned(
@@ -47,7 +115,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       )),
                 ),
                 Positioned(
-                    top: height * 0.2,
+                    top: height * 0.25,
                     left: width * 0.32,
                     child: GestureDetector(
                         child: Container(
@@ -64,6 +132,79 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
           ),
+          Expanded(
+              child: SingleChildScrollView(
+            child: Column(
+              children: [
+                TextField(
+                  controller: usernameController..text = userDetails[0],
+                  readOnly: !canUpdate,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      fontSize: 21, fontWeight: FontWeight.bold),
+                  decoration: canUpdate ? canEdit() : cannotEdit(),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextField(
+                  controller: emailController..text = user.email!,
+                  readOnly: false,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w600),
+                  decoration: canUpdate ? canEdit() : cannotEdit(),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextField(
+                  controller: numberController..text = userDetails[1],
+                  readOnly: !canUpdate,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey),
+                  decoration: canUpdate ? canEdit() : cannotEdit(),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: width * 0.1),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: width * 0.3,
+                      ),
+                      SizedBox(
+                        width: width * 0.23,
+                        child: FloatingActionButton(
+                            child: Text(canUpdate ? "Save" : "Update"),
+                            onPressed: () {
+                              if (canUpdate) {
+                                final doc = FirebaseFirestore.instance
+                                    .collection('Users')
+                                    .doc(user.uid);
+                                doc.update({
+                                  "Username": usernameController.text.trim(),
+                                  'number': numberController.text.trim()
+                                });
+                              }
+
+                              setState(() {
+                                canUpdate = !canUpdate;
+                              });
+                            }),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          )),
         ],
       ),
     );

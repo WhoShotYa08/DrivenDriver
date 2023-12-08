@@ -22,7 +22,8 @@ class TextInput extends StatelessWidget {
           focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey)),
           hintText: placeholder,
-          hintStyle: const TextStyle(color: Colors.grey)),
+          hintStyle: const TextStyle(color: Colors.grey)
+          ),
     );
   }
 }

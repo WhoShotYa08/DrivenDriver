@@ -1,6 +1,7 @@
 import 'package:driven_driver/models/circles_design.dart';
 import 'package:driven_driver/models/text_input.dart';
 import 'package:driven_driver/pages/forgot.dart';
+import 'package:driven_driver/models/login_options.dart';
 import 'package:driven_driver/pages/sign_up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    // final double _height = MediaQuery.of(context).size.height;
+    final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
 
     //controllers
@@ -36,23 +37,6 @@ class _LoginScreenState extends State<LoginScreen> {
           });
     }
 
-    // showDialog(
-    //     context: context,
-    //     builder: (context) {
-    //       return const Center(
-    //           child: Padding(
-    //         padding: EdgeInsets.all(12.0),
-    //         child: Column(
-    //           children: [
-    //             Text(
-    //               "Email does not exist",
-    //               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-    //             ),
-    //             Text("Would you like to create an account?")
-    //           ],
-    //         ),
-    //       ));
-    //     });
     void login() async {
       //on logging in show loading circle
       showDialog(
@@ -67,15 +51,11 @@ class _LoginScreenState extends State<LoginScreen> {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: emailController.text, password: passwordController.text);
       } on FirebaseAuthException catch (e) {
-        Navigator.pop(context);
-        if (e.code == 'user-not-found') {
-          print('No user found for that email');
-        } else if (e.code == 'wrong-password') {
-          print('Wrong password provided for thar user');
-        }
+        if (context.mounted) Navigator.pop(context);
+        print('Error: ${e.code}');
       }
       // removes the loading circle once logged in
-      Navigator.pop(context);
+      if (context.mounted) Navigator.pop(context);
     }
 
     return Scaffold(
@@ -211,88 +191,13 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
 
               const SizedBox(
-                height: 15,
-              ),
-
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: width * 0.1),
-                child: const Row(
-                  children: [
-                    Expanded(
-                        child: Divider(
-                      thickness: 0.5,
-                      color: Colors.grey,
-                    )),
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8),
-                        child: Text(
-                          "Or continue with",
-                          style: TextStyle(color: Colors.grey),
-                        )),
-                    Expanded(
-                        child: Divider(
-                      thickness: 0.5,
-                      color: Colors.grey,
-                    )),
-                  ],
-                ),
-              ),
-
-              const SizedBox(
-                height: 20,
+                height: 25,
               ),
 
               SizedBox(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    SizedBox(
-                      width: width * 0.4,
-                      child: FloatingActionButton(
-                          onPressed: () {},
-                          backgroundColor: Colors.black,
-                          child: const Center(
-                            child: Image(
-                                width: 50,
-                                height: 50,
-                                image:
-                                    AssetImage("assets/images/apple_logo.png")),
-                          )),
-                    ),
-                    SizedBox(
-                      width: width * 0.4,
-                      child: FloatingActionButton(
-                          onPressed: () {},
-                          backgroundColor:
-                              const Color.fromARGB(255, 58, 88, 151),
-                          hoverColor: const Color.fromARGB(255, 58, 88, 151),
-                          child: const Center(
-                            child: Image(
-                                width: 50,
-                                height: 50,
-                                image: AssetImage(
-                                    "assets/images/facebook_logo.png")),
-                          )),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              SizedBox(
-                width: width * 0.9,
-                child: FloatingActionButton(
-                    onPressed: () {},
-                    backgroundColor: const Color.fromARGB(255, 245, 245, 245),
-                    hoverColor: const Color.fromARGB(255, 245, 245, 245),
-                    child: const Center(
-                      child: Image(
-                          width: 50,
-                          height: 50,
-                          image: AssetImage("assets/images/google_logo.png")),
-                    )),
-              ),
+                height: height * 0.8,
+                child: const LoginOptions(),
+              )
             ],
           ),
         ),

@@ -1,3 +1,4 @@
+import 'package:driven_driver/pages/booked.dart';
 import 'package:driven_driver/pages/profile.dart';
 import 'package:flutter/material.dart';
 
@@ -18,9 +19,7 @@ class _BottomNavState extends State<BottomNav> {
     const Center(
       child: Text("Create Booking Screen"),
     ),
-    const Center(
-      child: Text("Booked Screen"),
-    ),
+    const BookedScreen(),
     const Center(
       child: Text("Location Screen"),
     ),
@@ -51,16 +50,16 @@ class _BottomNavState extends State<BottomNav> {
               label: "Create Booking",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.book_outlined),
-              activeIcon: Icon(Icons.book),
-              label: "Booked",
+              icon: Icon(Icons.car_repair_outlined),
+              activeIcon: Icon(Icons.car_repair),
+              label: "Rides",
             ),
             BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.location_searching_outlined,
+                  Icons.handshake_outlined,
                 ),
-                activeIcon: Icon(Icons.location_searching),
-                label: "Location"),
+                activeIcon: Icon(Icons.handshake),
+                label: "My Offers"),
             BottomNavigationBarItem(
               icon: Icon(Icons.person_2_outlined),
               activeIcon: Icon(Icons.person_2),
