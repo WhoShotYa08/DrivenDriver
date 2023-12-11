@@ -46,7 +46,12 @@ class BookedContainer extends StatelessWidget {
             width: width * 0.1,
             height: width * 0.05,
             child: FloatingActionButton(
-                onPressed: () {},
+                onPressed: () {
+                  FirebaseFirestore.instance
+                      .collection("Lifts")
+                      .doc(lift_id)
+                      .delete();
+                },
                 child: const Text(
                   'Delete',
                   style: TextStyle(color: Colors.red),
@@ -75,13 +80,17 @@ class BookedContainer extends StatelessWidget {
               width: width * 0.18,
               child: FloatingActionButton(
                 onPressed: () {
-                  final data = FirebaseFirestore.instance
-                      .collection('Lifts')
-                      .doc(lift_id);
+                  if (availableSeats >= 0) {
+                    final data = FirebaseFirestore.instance
+                        .collection('Lifts')
+                        .doc(lift_id);
 
-                  data.update({
-                    'numberOfPassenger': passengers + 1,
-                  });
+                    data.update({
+                      'numberOfPassenger': passengers + 1,
+                    });
+                  } else {
+                    print('no more seats available');
+                  }
                 },
                 child: const Text("Book"),
               )));
@@ -89,7 +98,7 @@ class BookedContainer extends StatelessWidget {
 
     return Container(
       width: width * 0.8,
-      height: height * 0.27,
+      height: height * 0.35,
       padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
           color: user.uid == driver ? light : dark,

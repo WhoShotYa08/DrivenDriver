@@ -108,7 +108,7 @@ class _BookedScreenState extends State<BookedScreen> {
                                     cost: lifts[index]['cost'],
                                     lift_id: lifts[index]['lift_id'],
                                   )
-                                : const Text(''),
+                                : const SizedBox(),
                             const SizedBox(
                               height: 10,
                             )
