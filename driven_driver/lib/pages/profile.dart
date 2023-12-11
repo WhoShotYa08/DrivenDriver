@@ -12,32 +12,8 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   bool isVisible = true;
 
-  late List userDetails;
-
   // user email
   final user = FirebaseAuth.instance.currentUser!;
-  //get user IDs
-  Future getDocId() async {
-    await FirebaseFirestore.instance
-        .collection('Users')
-        .get()
-        .then((snapShot) => snapShot.docs.forEach((document) {
-              if (document.reference.id == user.uid) {
-                setState(() {
-                  userDetails = [
-                    document.data()["Username"],
-                    document.data()['number']
-                  ];
-                });
-              }
-            }));
-  }
-
-  @override
-  void initState() {
-    getDocId();
-    super.initState();
-  }
 
   void logout() {
     FirebaseAuth.instance.signOut();
@@ -134,76 +110,93 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           Expanded(
               child: SingleChildScrollView(
-            child: Column(
-              children: [
-                TextField(
-                  controller: usernameController..text = userDetails[0],
-                  readOnly: !canUpdate,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      fontSize: 21, fontWeight: FontWeight.bold),
-                  decoration: canUpdate ? canEdit() : cannotEdit(),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextField(
-                  controller: emailController..text = user.email!,
-                  readOnly: false,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.w600),
-                  decoration: canUpdate ? canEdit() : cannotEdit(),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextField(
-                  controller: numberController..text = userDetails[1],
-                  readOnly: !canUpdate,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey),
-                  decoration: canUpdate ? canEdit() : cannotEdit(),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: width * 0.1),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width: width * 0.3,
-                      ),
-                      SizedBox(
-                        width: width * 0.23,
-                        child: FloatingActionButton(
-                            child: Text(canUpdate ? "Save" : "Update"),
-                            onPressed: () {
-                              if (canUpdate) {
-                                final doc = FirebaseFirestore.instance
-                                    .collection('Users')
-                                    .doc(user.uid);
-                                doc.update({
-                                  "Username": usernameController.text.trim(),
-                                  'number': numberController.text.trim()
-                                });
-                              }
+            child: StreamBuilder<QuerySnapshot>(
+                stream:
+                    FirebaseFirestore.instance.collection('Users').snapshots(),
+                builder: (context, snapshot) {
+                  List userDetails = [];
 
-                              setState(() {
-                                canUpdate = !canUpdate;
-                              });
-                            }),
+                  if (snapshot.hasData) {
+                    final details = snapshot.data?.docs.reversed.toList();
+                    for (var person in details!) {
+                      if (person.id == user.uid) {
+                        userDetails.add(person.data());
+                      }
+                    }
+                  }
+
+                  return Column(
+                    children: [
+                      TextField(
+                        controller: usernameController..text = userDetails[0]['Username']!,
+                        readOnly: !canUpdate,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            fontSize: 21, fontWeight: FontWeight.bold),
+                        decoration: canUpdate ? canEdit() : cannotEdit(),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextField(
+                        controller: emailController..text = user.email!,
+                        readOnly: false,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w600),
+                        decoration: canUpdate ? canEdit() : cannotEdit(),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextField(
+                        controller: numberController..text = userDetails[0]['number'],
+                        readOnly: !canUpdate,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.grey),
+                        decoration: canUpdate ? canEdit() : cannotEdit(),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: width * 0.1),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              width: width * 0.3,
+                            ),
+                            SizedBox(
+                              width: width * 0.23,
+                              child: FloatingActionButton(
+                                  child: Text(canUpdate ? "Save" : "Update"),
+                                  onPressed: () {
+                                    if (canUpdate) {
+                                      final doc = FirebaseFirestore.instance
+                                          .collection('Users')
+                                          .doc(user.uid);
+                                      doc.update({
+                                        "Username":
+                                            usernameController.text.trim(),
+                                        'number': numberController.text.trim()
+                                      });
+                                    }
+
+                                    setState(() {
+                                      canUpdate = !canUpdate;
+                                    });
+                                  }),
+                            )
+                          ],
+                        ),
                       )
                     ],
-                  ),
-                )
-              ],
-            ),
+                  );
+                }),
           )),
         ],
       ),

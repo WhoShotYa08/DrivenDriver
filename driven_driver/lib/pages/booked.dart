@@ -93,6 +93,7 @@ class _BookedScreenState extends State<BookedScreen> {
                                         .toLowerCase()
                                         .contains(result.toLowerCase())
                                 ? BookedContainer(
+                                    liftDetails: lifts[index],
                                     passengers: lifts[index]['number'],
                                     availableSeats: lifts[index]
                                         ["availableSeats"],

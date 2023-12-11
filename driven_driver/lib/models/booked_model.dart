@@ -1,5 +1,6 @@
 import 'dart:core';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:driven_driver/pages/update_booking.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,7 @@ class BookedContainer extends StatelessWidget {
   String destinationTown;
   String driver;
   String lift_id;
+  Object liftDetails;
 
   BookedContainer(
       {super.key,
@@ -26,7 +28,8 @@ class BookedContainer extends StatelessWidget {
       required this.destinationTown,
       required this.dateTime,
       required this.cost,
-      required this.lift_id});
+      required this.lift_id,
+      required this.liftDetails});
 
   // user email
   final user = FirebaseAuth.instance.currentUser!;
@@ -64,7 +67,14 @@ class BookedContainer extends StatelessWidget {
             width: width * 0.1,
             height: width * 0.05,
             child: FloatingActionButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            UpdateBookingScreen(liftDetails: liftDetails)),
+                  );
+                },
                 child: const Text('Edit',
                     style: TextStyle(color: Colors.blueAccent))),
           )
