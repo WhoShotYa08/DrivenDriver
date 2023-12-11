@@ -84,32 +84,15 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                       tap: () {},
                     ),
                     const SizedBox(height: 6),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: width * 0.59,
-                          child: AwesomeText(
-                            controller_: departureStreetController,
-                            icon: Icons.departure_board,
-                            label: "Date",
-                            type: TextInputType.datetime,
-                            tap: () {
-                              selectDate(context);
-                            },
-                          ),
-                        ),
-                        SizedBox(
-                            width: width * 0.35,
-                            child: AwesomeText(
-                                controller_: timeController,
-                                icon: Icons.timer,
-                                label: "Time",
-                                type: TextInputType.datetime,
-                                tap: () {
-                                  selectTime(context);
-                                })),
-                      ],
+                    // Date and Time
+                    AwesomeText(
+                      controller_: dateController,
+                      icon: Icons.departure_board,
+                      label: "Date(YYYY-MM-DD) Time(HH:MM:SS)",
+                      type: TextInputType.datetime,
+                      tap: () {
+                        selectDate(context);
+                      },
                     ),
                     const SizedBox(height: 6),
                     Row(
@@ -174,7 +157,8 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                             'availableSeats':
                                 int.parse(availableSeatsController.text.trim()),
                             'costShareDescription': costController.text.trim(),
-                            'departureDateTime': dateController.text.trim(),
+                            'departureDateTime':
+                                DateTime.parse(dateController.text.trim()),
                             'departureStreet':
                                 departureStreetController.text.trim(),
                             'departureTown': depatureTownController.text.trim(),

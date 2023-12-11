@@ -80,7 +80,7 @@ class BookedContainer extends StatelessWidget {
               width: width * 0.18,
               child: FloatingActionButton(
                 onPressed: () {
-                  if (availableSeats >= 0) {
+                  if (availableSeats - passengers >= 1) {
                     final data = FirebaseFirestore.instance
                         .collection('Lifts')
                         .doc(lift_id);
